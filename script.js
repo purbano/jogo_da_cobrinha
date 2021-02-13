@@ -10,6 +10,12 @@ snake[0] = {
 //Setar direções da cobrinha
 let direction = "right";
 
+//Direções da comidinha
+let food = { 
+    x: Math.floor(Math.random() * 15 + 1) * box, //Math.floor → Retira o ponto flutuante do número, deixando-o inteiro e o random() produz um número randomico
+    y: Math.floor(Math.random() * 15 + 1) * box
+}
+
 //Função inicial do Canvas
 function criarBG(){
     context.fillStyle = "lightgreen"; //Estilo do canvas
@@ -21,6 +27,12 @@ function criarCobrinha(){
         context.fillStyle = "green";
         context.fillRect(snake[i].x, snake[i].y, box, box);
     }
+}
+
+//Desenho da comidinha
+function drawFood(){
+    context.fillStyle = "red";
+    context.fillRect(food.x, food.y, box, box);
 }
 
 //Atribuindo funcionalidades aos botões de comando
@@ -42,6 +54,7 @@ function iniciarJogo(){
 
     criarBG();
     criarCobrinha();
+    drawFood();
 
     //posições iniciais da cobrinha
     let snakeX = snake[0].x;
