@@ -1,7 +1,7 @@
-let canvas = document.getElementById("snake");
+let canvas = document.getElementById("snake"); //Elemento que irá rodar o jogo
 let context = canvas.getContext("2d"); //Renderiza o desenho do canvas
 let box = 32; //definição dos pixels
-let snake =[]
+let snake =[] // cobrinha como lista, por ser uma série de coordenadas
 snake[0] = {
     x: 8*box,
     y: 8*box
@@ -48,10 +48,10 @@ function update (event){ //Direção dos comandos com uma condição de não vol
 
 function iniciarJogo(){
     //Lógica para que a cobrinha ao ultrapassar o canvas apareça do outro lado
-    if(snake[0].x > 15*box && direction == "right") snake[0].x = 0
-    if(snake[0].x < 0 && direction == "left") snake[0].x = 16
-    if(snake[0].y > 15*box && direction == "down") snake[0].y = 0
-    if(snake[0].y < 0 && direction == "up") snake[0].y = 16
+    if(snake[0].x > 15*box && direction == "right") snake[0].x = 0;
+    if(snake[0].x < 0 && direction == "left") snake[0].x = 16*box;
+    if(snake[0].y > 15*box && direction == "down") snake[0].y = 0;
+    if(snake[0].y < 0 && direction == "up") snake[0].y = 16*box;
 
     //Lógica para identificar se a cobrinha bate no próprio corpo
     for(i = 1; i < snake.length; i++){
@@ -78,7 +78,7 @@ function iniciarJogo(){
 
     //Função para crescer a cobrinha
     if(snakeX != food.x || snakeY != food.y){
-        snake.pop();
+        snake.pop(); //pop tira o último elemento da lista
     }
     else{
         food.x = Math.floor(Math.random() * 15 + 1) * box;
@@ -90,7 +90,7 @@ function iniciarJogo(){
         y: snakeY
     }
 
-    snake.unshift(newHead);
+    snake.unshift(newHead); //unshift adiciona como primeiro quadradinho da cobrinha
 }
 
 let jogo = setInterval(iniciarJogo, 100); //a cada 100 ms renova o jogo
