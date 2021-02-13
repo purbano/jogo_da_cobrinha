@@ -22,6 +22,7 @@ function criarBG(){
     context.fillRect(0, 0, 16*box, 16*box); //Desenho do retângulo em que ocorrerá o jogo (x, y, altura e largura)
 }
 
+//Função que define a cobrinha
 function criarCobrinha(){
     for(i=0; i< snake.length; i++){
         context.fillStyle = "green";
@@ -29,7 +30,7 @@ function criarCobrinha(){
     }
 }
 
-//Desenho da comidinha
+//Função que define o desenho da comidinha
 function drawFood(){
     context.fillStyle = "red";
     context.fillRect(food.x, food.y, box, box);
@@ -52,11 +53,12 @@ function iniciarJogo(){
     if(snake[0].y > 15*box && direction == "down") snake[0].y = 0
     if(snake[0].y < 0*box && direction == "up") snake[0].y = 15
 
+    //Chamar as funções
     criarBG();
     criarCobrinha();
     drawFood();
 
-    //posições iniciais da cobrinha
+    //Posições iniciais da cobrinha
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
 
@@ -66,15 +68,21 @@ function iniciarJogo(){
     if(direction == "up") snakeY -= box;
     if(direction == "down") snakeY += box;
 
-    //Função para aumentar a cobrinha
-    snake.pop();
+    //Função para crescer a cobrinha
+    if(snakeX != food.x || snakeY != food.y){
+        snake.pop();
+    }
+    else{
+        food.x = Math.floor(Math.random() * 15 + 1) * box;
+        food.y = Math.floor(Math.random() * 15 + 1) * box;
+    }
 
     let newHead = {
         x: snakeX,
         y: snakeY
     }
-
-        snake.unshift(newHead);
+        
+    snake.unshift(newHead);
 }
 
 let jogo = setInterval(iniciarJogo, 100); //a cada 100 ms renova o jogo
